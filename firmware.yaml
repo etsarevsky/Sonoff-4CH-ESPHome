@@ -1,0 +1,96 @@
+esphome:
+  name: sonoff-4ch
+  platform: ESP8266
+  board: esp01_1m
+
+wifi:
+  ssid: "Wi-Fi"
+  password: "Password"
+
+  ap:
+    ssid: "Sonoff 4CH Fallback Hotspot"
+    password: "Password"
+
+captive_portal:
+
+# Включить logging
+logger:
+
+# Включить Home Assistant API
+api:
+  password: "Password"
+
+ota:
+
+web_server:
+  port: 80
+
+binary_sensor:
+  - platform: gpio
+    id: button1
+    pin:
+      number: GPIO0
+      mode: INPUT_PULLUP
+      inverted: True
+    on_press:
+      - switch.toggle: relay1      
+  - platform: gpio
+    id: button2
+    pin:
+      number: GPIO9
+      mode: INPUT_PULLUP
+      inverted: True
+    on_press:
+      - switch.toggle: relay2      
+  - platform: gpio
+    id: button3
+    pin:
+      number: GPIO10
+      mode: INPUT_PULLUP
+      inverted: True
+    on_press:
+      - switch.toggle: relay3      
+  - platform: gpio
+    id: button4
+    pin:
+      number: GPIO14
+      mode: INPUT_PULLUP
+      inverted: True
+    on_press:
+      - switch.toggle: relay4      
+  - platform: status
+    name: "Sonoff 4CH Status"
+
+switch:
+  - platform: gpio
+    id: relay1
+    name: "Sonoff 4CH Relay 1"
+    pin: GPIO12
+  - platform: gpio
+    id: relay2
+    name: "Sonoff 4CH Relay 2"
+    pin: GPIO5
+  - platform: gpio
+    id: relay3    
+    name: "Sonoff 4CH Relay 3"
+    pin: GPIO4
+  - platform: gpio
+    id: relay4
+    name: "Sonoff 4CH Relay 4"
+    pin: GPIO15
+
+status_led:
+  pin: 
+    number: GPIO13
+    inverted: false
+  
+sensor:
+  - platform: wifi_signal
+    name: "Sonoff 4CH WiFi Signal"
+    update_interval: 60s
+  - platform: uptime
+    name: "Sonoff 4CH Uptime"
+  
+text_sensor:
+  - platform: version
+    name: "Sonoff 4CH ESPHome Version"
