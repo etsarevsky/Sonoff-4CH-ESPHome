@@ -13,10 +13,8 @@ wifi:
 
 captive_portal:
 
-# Включить logging
 logger:
 
-# Включить Home Assistant API
 api:
   password: "Password"
 
